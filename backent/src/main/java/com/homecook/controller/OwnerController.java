@@ -21,6 +21,7 @@ import com.homecook.entity.User;
 import com.homecook.repository.MealRepository;
 import com.homecook.repository.OrderRepository;
 import com.homecook.repository.UserRepository;
+import com.homecook.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -31,14 +32,34 @@ public class OwnerController {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final MealRepository mealRepository;
+    private final UserService userService;
 
     public OwnerController(
             UserRepository userRepository,
             OrderRepository orderRepository,
-            MealRepository mealRepository) {
+            MealRepository mealRepository,
+            UserService userService) {
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.mealRepository = mealRepository;
+        this.userService = userService;
+    }
+
+    @PostMapping("/owners")
+    public String createOwner(
+            @ModelAttribute User newOwner,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+        if (!isOwner(session)) return "redirect:/owner-login";
+
+        newOwner.setRole("OWNER");
+        try {
+            userService.register(newOwner);
+            redirectAttributes.addFlashAttribute("ownerSuccess", "Owner account created. They can now sign in on the owner login page.");
+        } catch (RuntimeException exception) {
+            redirectAttributes.addFlashAttribute("ownerError", "Could not create the owner account. Check the required fields and make sure the email is not already registered.");
+        }
+        return "redirect:/owner/dashboard#owner-management";
     }
 
     @PostMapping("/meals")
@@ -129,7 +150,8 @@ public class OwnerController {
     }
 
     @PostMapping("/customers/{id}/block")
-    public String blockCustomer(@PathVariable Long id) {
+    public String blockCustomer(@PathVariable Long id, HttpSession session) {
+        if (!isOwner(session)) return "redirect:/owner-login";
         userRepository.findById(id).ifPresent(user -> {
             user.setBlocked(!user.isBlocked());
             userRepository.save(user);
@@ -138,7 +160,8 @@ public class OwnerController {
     }
 
     @PostMapping("/customers/{id}/delete")
-    public String deleteCustomer(@PathVariable Long id) {
+    public String deleteCustomer(@PathVariable Long id, HttpSession session) {
+        if (!isOwner(session)) return "redirect:/owner-login";
         userRepository.deleteById(id);
         return "redirect:/owner/dashboard";
     }
@@ -175,7 +198,8 @@ public class OwnerController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
+    public String dashboard(Model model, HttpSession session) {
+        if (!isOwner(session)) return "redirect:/owner-login";
 
         List<User> customers = userRepository.findByRoleOrderByIdDesc("CUSTOMER");
         List<Order> allOrders = orderRepository.findAllByOrderByCreatedAtDesc();

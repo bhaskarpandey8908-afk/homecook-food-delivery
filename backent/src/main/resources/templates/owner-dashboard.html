@@ -251,6 +251,21 @@
         </div>
     </div>
 
+    <div id="owner-management" class="panel table-card mb-4">
+        <h4 class="mb-1">Create owner account</h4>
+        <p class="text-muted">Only a signed-in owner can create another owner account.</p>
+        <div th:if="${ownerSuccess}" class="alert alert-success" th:text="${ownerSuccess}"></div>
+        <div th:if="${ownerError}" class="alert alert-danger" th:text="${ownerError}"></div>
+        <form th:action="@{/owner/owners}" method="post" class="menu-form-grid">
+            <input name="name" class="form-control" placeholder="Full name" required maxlength="120">
+            <input name="email" type="email" class="form-control" placeholder="Email address" required maxlength="180">
+            <input name="phone" class="form-control" placeholder="Phone number" required maxlength="30">
+            <input name="password" type="password" class="form-control" placeholder="Temporary password" required minlength="8">
+            <input name="address" class="form-control" placeholder="Address (optional)" maxlength="255">
+            <button type="submit" class="btn btn-warning">Create owner</button>
+        </form>
+    </div>
+
     <div class="row g-4 mb-4">
         <div class="col-md-4">
             <div class="stat-card">

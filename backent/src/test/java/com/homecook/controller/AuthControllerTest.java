@@ -13,6 +13,10 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.mockito.ArgumentCaptor;
+import static org.mockito.Mockito.verify;
 
 import com.homecook.entity.User;
 import com.homecook.service.DailyMenuRecommendationService;
@@ -41,19 +45,31 @@ class AuthControllerTest {
     }
 
     @Test
-    void register_withJsonPayload_shouldSucceed() throws Exception {
-        User savedUser = new User();
-        savedUser.setId(1L);
-        savedUser.setName("Test User");
-        savedUser.setEmail("test@example.com");
-        savedUser.setPassword("encodedPassword");
-        savedUser.setRole("USER");
-
-        when(userService.register(any(User.class))).thenReturn(savedUser);
+    void publicJsonRegistration_cannotCreateOwner() throws Exception {
+        when(userService.register(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"Test User\",\"email\":\"test@example.com\",\"password\":\"password123\",\"phone\":\"9999999999\",\"address\":\"Test Address\",\"role\":\"USER\"}"))
-                .andExpect(status().isCreated());
+                .content("{\"name\":\"Test User\",\"email\":\"test@example.com\",\"password\":\"password123\",\"phone\":\"9999999999\",\"address\":\"Test Address\",\"role\":\"OWNER\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.role").value("CUSTOMER"));
+    }
+
+    @Test
+    void publicFormRegistration_cannotCreateOwner() throws Exception {
+        when(userService.register(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        mockMvc.perform(post("/register")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("name", "Test User")
+                .param("email", "test@example.com")
+                .param("password", "password123")
+                .param("phone", "9999999999")
+                .param("role", "OWNER"))
+                .andExpect(status().is3xxRedirection());
+
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        verify(userService).register(userCaptor.capture());
+        assertEquals("CUSTOMER", userCaptor.getValue().getRole());
     }
 }

@@ -92,13 +92,21 @@ public class AuthController {
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> registerUserJson(@RequestBody User user) {
+        applyPublicRegistrationRole(user);
         User savedUser = userService.register(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String registerUserForm(@ModelAttribute User user) {
+        applyPublicRegistrationRole(user);
         userService.register(user);
         return "redirect:/login";
+    }
+
+    private void applyPublicRegistrationRole(User user) {
+        if (user != null && !"CHEF".equalsIgnoreCase(user.getRole())) {
+            user.setRole("CUSTOMER");
+        }
     }
 }

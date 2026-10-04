@@ -8,6 +8,7 @@ import com.homecook.entity.User;
 import com.homecook.repository.MealRepository;
 import com.homecook.repository.OrderRepository;
 import com.homecook.repository.UserRepository;
+import com.homecook.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -21,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.never;
 
 @WebMvcTest(OwnerController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -38,11 +40,52 @@ class OwnerControllerTest {
     @MockBean
     private MealRepository mealRepository;
 
+    @MockBean
+    private UserService userService;
+
     @Test
     void blockCustomer_shouldRedirectToDashboard() throws Exception {
-        mockMvc.perform(post("/owner/customers/1/block"))
+        User owner = new User();
+        owner.setRole("OWNER");
+        mockMvc.perform(post("/owner/customers/1/block").sessionAttr("loggedInUser", owner))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/owner/dashboard"));
+    }
+
+    @Test
+    void createOwner_withoutOwnerSession_redirectsToOwnerLogin() throws Exception {
+        mockMvc.perform(post("/owner/owners").param("email", "new-owner@example.com"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/owner-login"));
+
+        verify(userService, never()).register(any(User.class));
+    }
+
+    @Test
+    void createOwner_withOwnerSession_setsOwnerRole() throws Exception {
+        User owner = new User();
+        owner.setRole("OWNER");
+        when(userService.register(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        mockMvc.perform(post("/owner/owners")
+                        .sessionAttr("loggedInUser", owner)
+                        .param("name", "Second Owner")
+                        .param("email", "second-owner@example.com")
+                        .param("phone", "1234567890")
+                        .param("password", "password123"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/owner/dashboard#owner-management"));
+
+        org.mockito.ArgumentCaptor<User> userCaptor = org.mockito.ArgumentCaptor.forClass(User.class);
+        verify(userService).register(userCaptor.capture());
+        org.junit.jupiter.api.Assertions.assertEquals("OWNER", userCaptor.getValue().getRole());
+    }
+
+    @Test
+    void dashboard_withoutOwnerSession_redirectsToOwnerLogin() throws Exception {
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/owner/dashboard"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/owner-login"));
     }
 
     @Test
