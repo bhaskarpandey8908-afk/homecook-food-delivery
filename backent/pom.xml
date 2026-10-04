@@ -23,7 +23,7 @@
     <description>On Demand Home Cook Food Delivery Platform</description>
 
     <properties>
-        <java.version>22</java.version>
+        <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <lombok.version>1.18.38</lombok.version>
