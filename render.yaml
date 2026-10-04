@@ -1,9 +1,35 @@
 services:
   - type: web
     name: homecook-food-delivery
-    runtime: java
+    runtime: docker
     plan: free
-    rootDir: backent
-    buildCommand: mvn clean package -DskipTests
-    startCommand: java -jar target/HomeCookFoodDelivery-1.0.0.jar
+    dockerfilePath: ./backent/Dockerfile
+    dockerContext: ./backent
     healthCheckPath: /
+    envVars:
+      - key: DB_TYPE
+        value: postgresql
+      - key: DB_HOST
+        fromDatabase:
+          name: homecook-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: homecook-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: homecook-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: homecook-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: homecook-db
+          property: password
+
+databases:
+  - name: homecook-db
+    plan: free
