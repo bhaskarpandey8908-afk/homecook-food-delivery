@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8d7d7 0%, #f4b6b6 35%, #f0a8a8 100%);
+            color: #3b1d1d;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            padding-top: 30px;
+            padding-bottom: 40px;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 22px;
+            box-shadow: 0 25px 50px rgba(78, 14, 14, 0.12);
+            overflow: hidden;
+        }
+
+        .topbar {
+            background: linear-gradient(135deg, #f59e0b, #f97316 55%, #fb7185);
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 240, 240, 0.92));
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 18px;
+            padding: 22px;
+            min-height: 136px;
+            color: #3b1d1d;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .table-card {
+            padding: 18px;
+        }
+
+        .table thead th {
+            color: #7a1f2c;
+            border-color: rgba(148, 163, 184, 0.2);
+        }
+
+        .table td, .table th {
+            color: #3a2a2a;
+            vertical-align: middle;
+            border-color: rgba(148, 163, 184, 0.18);
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            padding: 8px 10px;
+            border-radius: 999px;
+        }
+
+        .btn-warning {
+            border: none;
+            font-weight: 700;
+            color: #111827;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        }
+
+        .action-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .table .btn {
+            font-size: 0.75rem;
+            padding: 6px 10px;
+            border-radius: 10px;
+        }
+
+        .message-column {
+            min-width: 250px;
+        }
+
+        .message-column textarea,
+        .message-column select {
+            min-width: 220px;
+            font-size: 0.82rem;
+        }
+
+        .menu-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .menu-form-grid textarea,
+        .menu-form-grid input,
+        .menu-form-grid select {
+            min-width: 0;
+        }
+
+        .meal-editor {
+            min-width: 280px;
+        }
+
+        .menu-status {
+            font-weight: 700;
+        }
+
+        .order-card {
+            background: #fff;
+            border: 1px solid #e5caca;
+            border-radius: 18px;
+            margin-top: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(78, 14, 14, 0.08);
+        }
+
+        .order-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 16px 20px;
+            background: #fff5f5;
+            border-bottom: 1px solid #f0dada;
+        }
+
+        .order-number {
+            color: #7a1f2c;
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .order-time {
+            color: #6b7280;
+            font-size: .9rem;
+            margin-top: 3px;
+        }
+
+        .order-total {
+            color: #7a1f2c;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .order-card-body {
+            padding: 18px 20px;
+        }
+
+        .order-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .order-detail {
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #faf7f7;
+            border: 1px solid #f0e5e5;
+            overflow-wrap: anywhere;
+        }
+
+        .order-detail small {
+            display: block;
+            color: #7b6970;
+            margin-bottom: 4px;
+        }
+
+        .order-items-title {
+            color: #7a1f2c;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .order-food-item {
+            padding: 12px 14px;
+            border: 1px solid #eee2e2;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            background: #fff;
+        }
+
+        .order-food-name {
+            font-weight: 700;
+            color: #33252a;
+        }
+
+        .order-customizations {
+            margin-top: 5px;
+            color: #6b5560;
+            font-size: .9rem;
+        }
+
+        .order-message-form {
+            margin-top: 18px;
+            padding: 15px;
+            background: #fff9ed;
+            border: 1px solid #f4dfb7;
+            border-radius: 14px;
+        }
+
+        .order-message-form textarea { min-height: 88px; }
+
+        .customer-order-history { min-width: 145px; }
+
+        .customer-history-list {
+            min-width: 250px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding: 8px;
+            border: 1px solid #eadada;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .customer-history-item {
+            padding: 10px;
+            border-bottom: 1px solid #f0e5e5;
+        }
+
+        .customer-history-item:last-child { border-bottom: 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div th:if="${messageSent}" class="alert alert-success" th:text="${messageSent}"></div>
+    <div th:if="${messageError}" class="alert alert-danger" th:text="${messageError}"></div>
+    <div th:if="${orderActionNotice}" class="alert alert-info" th:text="${orderActionNotice}"></div>
+    <div class="panel mb-4">
+        <div class="topbar">
+            <div>
+                <h2 class="mb-0">🏪 Owner Dashboard</h2>
+            </div>
+            <a href="/" class="btn btn-warning">Home</a>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="text-muted small">Total Customers</div>
+                <h3 th:text="${customerCount}">0</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="text-muted small">Total Orders</div>
+                <h3 th:text="${orderCount}">0</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="text-muted small">Revenue</div>
+                <h3>₹<span th:text="${#numbers.formatDecimal(totalRevenue, 1, 2)}">0.00</span></h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu-management" class="panel table-card mb-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+            <div>
+                <h4 class="mb-1">Manage food menu</h4>
+                <p class="text-muted mb-0">Add meals, edit their details, or remove/restore them from the customer menu.</p>
+            </div>
+        </div>
+        <div th:if="${mealSuccess}" class="alert alert-success" th:text="${mealSuccess}"></div>
+        <div th:if="${mealError}" class="alert alert-danger" th:text="${mealError}"></div>
+
+        <form th:action="@{/owner/meals}" method="post" class="menu-form-grid mb-4">
+            <input name="name" class="form-control" placeholder="Meal name" required maxlength="150">
+            <input name="price" type="number" min="0.01" step="0.01" class="form-control" placeholder="Price (₹)" required>
+            <input name="category" class="form-control" placeholder="Category">
+            <select name="mealTime" class="form-select" required>
+                <option value="Breakfast">Breakfast</option><option value="Lunch" selected>Lunch</option><option value="Dinner">Dinner</option>
+            </select>
+            <select name="foodType" class="form-select" required>
+                <option value="VEG" selected>Veg</option><option value="NON_VEG">Non-Veg</option>
+            </select>
+            <input name="quantity" type="number" min="0" class="form-control" placeholder="Stock quantity" value="0">
+            <input name="image" class="form-control" placeholder="Image URL (optional)">
+            <input type="hidden" name="available" value="true">
+            <textarea name="description" class="form-control" placeholder="Meal description" maxlength="1000"></textarea>
+            <button type="submit" class="btn btn-warning">Add meal to menu</button>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                <tr><th>Meal</th><th>Meal time</th><th>Type</th><th>Price</th><th>Availability</th><th>Edit details</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="meal : ${meals}">
+                    <td>
+                        <strong th:text="${meal.name}">Meal name</strong>
+                        <small class="d-block text-muted" th:text="${meal.category}">Category</small>
+                    </td>
+                    <td th:text="${meal.mealTimeLabel}">Lunch</td>
+                    <td th:text="${meal.foodTypeLabel}">Veg</td>
+                    <td>₹<span th:text="${meal.price}">0</span></td>
+                    <td><span class="menu-status" th:text="${meal.available} ? 'On menu' : 'Removed'">On menu</span></td>
+                    <td class="meal-editor">
+                        <details>
+                            <summary class="btn btn-sm btn-outline-dark mb-2">Edit meal</summary>
+                            <form th:action="@{/owner/meals/{id}/update(id=${meal.id})}" method="post" class="menu-form-grid">
+                                <input name="name" class="form-control" placeholder="Meal name" required maxlength="150" th:value="${meal.name}">
+                                <input name="price" type="number" min="0.01" step="0.01" class="form-control" placeholder="Price" required th:value="${meal.price}">
+                                <input name="category" class="form-control" placeholder="Category" th:value="${meal.category}">
+                                <select name="mealTime" class="form-select" required>
+                                    <option value="Breakfast" th:selected="${meal.mealTimeLabel == 'Breakfast'}">Breakfast</option>
+                                    <option value="Lunch" th:selected="${meal.mealTimeLabel == 'Lunch'}">Lunch</option>
+                                    <option value="Dinner" th:selected="${meal.mealTimeLabel == 'Dinner'}">Dinner</option>
+                                </select>
+                                <select name="foodType" class="form-select" required>
+                                    <option value="VEG" th:selected="${meal.foodTypeLabel == 'Veg'}">Veg</option>
+                                    <option value="NON_VEG" th:selected="${meal.foodTypeLabel == 'Non-Veg'}">Non-Veg</option>
+                                </select>
+                                <input name="quantity" type="number" min="0" class="form-control" placeholder="Stock" th:value="${meal.quantity}">
+                                <input name="image" class="form-control" placeholder="Image URL" th:value="${meal.image}">
+                                <select name="available" class="form-select">
+                                    <option value="true" th:selected="${meal.available}">On menu</option>
+                                    <option value="false" th:selected="${!meal.available}">Removed</option>
+                                </select>
+                                <textarea name="description" class="form-control" placeholder="Description" maxlength="1000" th:text="${meal.description}"></textarea>
+                                <button type="submit" class="btn btn-warning">Save changes</button>
+                            </form>
+                        </details>
+                        <form th:if="${meal.available}" th:action="@{/owner/meals/{id}/remove(id=${meal.id})}" method="post" class="d-inline"
+                              onsubmit="return confirm('Remove this meal from the customer menu? Past orders will be preserved.');">
+                            <button type="submit" class="btn btn-sm btn-danger">Remove from menu</button>
+                        </form>
+                        <form th:unless="${meal.available}" th:action="@{/owner/meals/{id}/restore(id=${meal.id})}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-success">Restore to menu</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(meals)}"><td colspan="6" class="text-center text-muted">No meals created yet.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel table-card mb-4">
+        <h4 class="mb-3">Customer Details</h4>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Order history</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="customer, iter : ${customers}">
+                    <td th:text="${iter.index + 1}">1</td>
+                    <td>
+                        <span th:text="${customer.name}">Customer</span>
+                        <span th:if="${customer.blocked}" class="badge bg-danger ms-2">Blocked</span>
+                    </td>
+                    <td th:text="${customer.email}">email</td>
+                    <td th:text="${customer.phone}">phone</td>
+                    <td th:text="${customer.address}">address</td>
+                    <td>
+                        <details class="customer-order-history" th:with="customerOrders=${ordersByCustomer[customer.id]}">
+                            <summary class="btn btn-sm btn-outline-dark">View details</summary>
+                            <div class="customer-history-list mt-2" th:if="${!#lists.isEmpty(customerOrders)}">
+                                <div class="customer-history-item" th:each="customerOrder : ${customerOrders}">
+                                    <div class="d-flex justify-content-between gap-2 flex-wrap">
+                                        <strong th:text="|Order #HC-${#numbers.formatInteger(customerOrder.id, 6)}|">Order number</strong>
+                                        <span class="badge bg-success" th:text="${customerOrder.orderStatus}">DELIVERED</span>
+                                    </div>
+                                    <small class="text-muted" th:text="${customerOrder.formattedCreatedAt}">Date and time</small>
+                                    <div th:each="item : ${customerOrder.items}" class="small mt-1">
+                                        <span th:text="${item.meal != null ? item.meal.name : 'Food'} + ' × ' + ${item.quantity}">Meal × 1</span>
+                                    </div>
+                                    <strong class="d-block mt-1">₹<span th:text="${#numbers.formatDecimal(customerOrder.totalAmount != null ? customerOrder.totalAmount : 0, 1, 2)}">0.00</span></strong>
+                                </div>
+                            </div>
+                            <p class="small text-muted mt-2 mb-0" th:if="${#lists.isEmpty(customerOrders)}">No orders for this customer.</p>
+                        </details>
+                    </td>
+                    <td>
+                        <span class="badge bg-warning text-dark" th:text="${customer.role}">CUSTOMER</span>
+                    </td>
+                    <td>
+                        <div class="action-group">
+                            <form th:action="@{/owner/customers/{id}/block(id=${customer.id})}" method="post">
+                                <button type="submit" class="btn btn-sm" th:classappend="${customer.blocked} ? 'btn-success' : 'btn-warning'"
+                                        th:text="${customer.blocked} ? 'Unblock' : 'Block'">Block</button>
+                            </form>
+                            <form th:action="@{/owner/customers/{id}/delete(id=${customer.id})}" method="post"
+                                  onsubmit="return confirm('Delete this customer account?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(customers)}">
+                    <td colspan="8" class="text-center text-muted">No customers registered yet.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="customer-orders" class="panel table-card">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+            <div>
+                <h4 class="mb-1">Customer Orders</h4>
+                <p class="text-muted mb-0">Order details are grouped by booking for quick review.</p>
+            </div>
+            <span class="badge bg-light text-dark" th:text="|${orderCount} total orders|">0 total orders</span>
+        </div>
+
+        <article class="order-card" th:each="order : ${orders}" th:id="|order-${order.id}|">
+            <header class="order-card-header">
+                <div>
+                    <div class="order-number" th:text="|Order #HC-${#numbers.formatInteger(order.id, 6)}|">Order #HC-000001</div>
+                    <div class="order-time" th:text="${order.formattedCreatedAt}">Booking date and time</div>
+                </div>
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <span class="badge bg-success" th:text="${order.orderStatus}">PLACED</span>
+                    <div class="order-total">₹<span th:text="${#numbers.formatDecimal(order.totalAmount != null ? order.totalAmount : 0, 1, 2)}">0.00</span></div>
+                </div>
+            </header>
+            <div class="order-card-body">
+                <div class="order-detail-grid">
+                    <div class="order-detail">
+                        <small>Customer</small>
+                        <strong th:text="${order.user != null ? order.user.name : 'Unknown'}">Customer name</strong>
+                        <div th:if="${order.user != null}" th:text="${order.user.email}">customer@email.com</div>
+                        <div th:if="${order.user != null}" th:text="${order.user.phone}">Phone</div>
+                    </div>
+                    <div class="order-detail">
+                        <small>Delivery address</small>
+                        <strong th:text="${order.deliveryAddress}">Customer address</strong>
+                    </div>
+                    <div class="order-detail">
+                        <small>Delivery & payment</small>
+                        <strong th:text="${order.deliveryType == 'PICKUP' ? 'Pickup' : 'Home delivery'}">Home delivery</strong>
+                        <div>Payment: <span th:text="${order.paymentStatus}">PENDING</span></div>
+                    </div>
+                </div>
+
+                <h5 class="order-items-title">Food items</h5>
+                <div th:if="${order.items != null and !#lists.isEmpty(order.items)}">
+                    <div class="order-food-item" th:each="item : ${order.items}">
+                        <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+                            <span class="order-food-name" th:text="${item.meal != null ? item.meal.name : 'Food'} + ' (' + ${item.meal != null ? item.meal.foodTypeLabel : 'Unknown'} + ') × ' + ${item.quantity}">Meal name (Veg) × 1</span>
+                            <strong>₹<span th:text="${#numbers.formatDecimal(item.price * item.quantity, 1, 2)}">0.00</span></strong>
+                        </div>
+                        <div class="order-customizations" th:if="${item.customizations != null}">
+                            <strong>Kitchen preferences:</strong>
+                            <span th:text="${item.customizations}">Spice: Regular, Oil: Regular</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted" th:unless="${order.items != null and !#lists.isEmpty(order.items)}">No food items were recorded for this order.</p>
+
+                                <div class="d-flex gap-2 flex-wrap mt-3">
+                                        <form th:if="${order.orderStatus != 'DELIVERED' and order.orderStatus != 'CANCELLED'}"
+                                                    th:action="@{/owner/orders/{id}/delivered(id=${order.id})}" method="post">
+                                                <button type="submit" class="btn btn-success">Mark as delivered</button>
+                                        </form>
+                                        <form th:action="@{/owner/orders/{id}/remove(id=${order.id})}" method="post">
+                                                <button type="submit" class="btn btn-outline-danger">Remove order</button>
+                                        </form>
+                                </div>
+
+                <details class="order-message-form">
+                    <summary class="fw-bold text-dark">Send an update to this customer</summary>
+                    <form th:action="@{/owner/orders/{id}/messages(id=${order.id})}" method="post" class="d-grid gap-2 mt-3">
+                        <select class="form-select" aria-label="Choose an order message" onchange="applyOrderMessage(this)">
+                            <option value="confirmed" selected>Order confirmed</option>
+                            <option value="preparing">Being prepared</option>
+                            <option value="on-the-way">Out for delivery</option>
+                            <option value="ready">Ready for pickup</option>
+                            <option value="delay">Delivery delay</option>
+                        </select>
+                        <textarea name="message" class="form-control" rows="3" maxlength="1000" required
+                                  th:text="|Hello ${order.user != null ? order.user.name : 'Customer'}, your order #${order.id} is confirmed. We will keep you updated.|"></textarea>
+                        <small class="text-muted">Choose a suggested update or edit the message before sending.</small>
+                        <button type="submit" class="btn btn-warning">Send message</button>
+                    </form>
+                </details>
+            </div>
+        </article>
+
+        <div class="text-center text-muted py-4" th:if="${#lists.isEmpty(orders)}">No orders have been placed yet.</div>
+    </div>
+</div>
+<script>
+    function applyOrderMessage(select) {
+        const form = select.closest('form');
+        const textarea = form.querySelector('textarea[name="message"]');
+        const customer = select.dataset.customerName || 'Customer';
+        const orderNumber = select.dataset.orderId || '';
+        const messages = {
+            confirmed: `Hello ${customer}, your order #${orderNumber} is confirmed. We will keep you updated.`,
+            preparing: `Hello ${customer}, our chef has started preparing your order #${orderNumber}.`,
+            'on-the-way': `Hello ${customer}, your order #${orderNumber} is on its way.`,
+            ready: `Hello ${customer}, your order #${orderNumber} is ready for pickup.`,
+            delay: `Hello ${customer}, your order #${orderNumber} is taking a little longer than expected. Thank you for your patience.`
+        };
+        textarea.value = messages[select.value] || '';
+    }
+
+    document.querySelectorAll('.message-column select').forEach(select => {
+        select.dataset.customerName = select.closest('tr').querySelector('td:nth-child(2) strong')?.textContent.trim() || 'Customer';
+        select.dataset.orderId = select.closest('tr').querySelector('td:first-child')?.textContent.trim() || '';
+    });
+</script>
+</body>
+</html>

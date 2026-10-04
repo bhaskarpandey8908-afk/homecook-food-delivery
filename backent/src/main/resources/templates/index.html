@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeChef - Homemade Food</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container position-relative home-header-shell">
+        <div class="top-brand-box">
+            <span class="top-brand-icon">🍲</span>
+            <span class="top-brand-text">HomeChef</span>
+        </div>
+
+        <div class="nav-menu-box">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/meals">Meals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login">Customer Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/owner-login">Owner Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About App</a></li>
+                    <li class="nav-item"><a href="/meals" class="btn btn-warning ms-lg-3">Order Now</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge badge-soft">Fresh. Local. Homemade.</span>
+                <h1>Delicious food from trusted home chefs near you.</h1>
+                <p>
+                    HomeChef connects customers with talented home cooks who prepare tasty, hygienic,
+                    and affordable meals with a personal touch.
+                </p>
+                <div class="hero-actions" style="display: flex; gap: 18px; flex-wrap: wrap; align-items: center;">
+                    <a href="/meals" class="btn btn-warning btn-lg">Explore Meals</a>
+                    <a href="/register" class="btn btn-light btn-lg">Create Account</a>
+                    <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#appInfoModal">
+                        App Details
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <strong>1200+</strong>
+                        <span>Happy customers</span>
+                    </div>
+                    <div>
+                        <strong>80+</strong>
+                        <span>Verified chefs</span>
+                    </div>
+                    <div>
+                        <strong>4.9/5</strong>
+                        <span>Average rating</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image-card">
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80" alt="Vegetarian Indian thali platter" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="section-heading text-center mb-4">
+        <span class="section-tag">Why choose us</span>
+        <h2>Everything you need for great homemade meals</h2>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="icon">🏠</div>
+                <h3>Homemade Taste</h3>
+                <p>Enjoy dishes prepared with love, spices, and family recipes by verified home chefs.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="icon">📍</div>
+                <h3>Local & Fast</h3>
+                <p>Order from nearby chefs and receive fresh food at your doorstep without long waits.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="icon">🔒</div>
+                <h3>Trusted Platform</h3>
+                <p>Secure account creation, safe checkout, and a user-friendly system for customers and chefs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5 chef-section">
+    <div class="section-heading text-center mb-4">
+        <span class="section-tag">Our chefs</span>
+        <h2>Meet the food makers behind every meal</h2>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="chef-card popup-card">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=600&q=80" alt="Chef Asha">
+                <div class="chef-info">
+                    <h4>Asha Sharma</h4>
+                    <p>North Indian Specials</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="chef-card popup-card">
+                <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=600&q=80" alt="Chef Rohan">
+                <div class="chef-info">
+                    <h4>Rohan Verma</h4>
+                    <p>Healthy Meals</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="chef-card popup-card">
+                <img src="https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?auto=format&fit=crop&w=600&q=80" alt="Chef Nisha">
+                <div class="chef-info">
+                    <h4>Nisha Roy</h4>
+                    <p>Homestyle Bengali Food</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="chef-card popup-card">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Chef Arjun">
+                <div class="chef-info">
+                    <h4>Arjun Das</h4>
+                    <p>Signature Curries</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row align-items-center g-4 app-showcase">
+        <div class="col-lg-6">
+            <div class="showcase-card popup-card">
+                <span class="section-tag">How it works</span>
+                <h2>From kitchen to your table in simple steps</h2>
+                <ul>
+                    <li>Browse meals from local home chefs.</li>
+                    <li>Choose your favorite dish and add to cart.</li>
+                    <li>Place the order and enjoy fast delivery.</li>
+                    <li>Track your food experience in a smooth user journey.</li>
+                </ul>
+                <a href="/register" class="btn btn-warning">Join Now</a>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="popup-image-card">
+                <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=900&q=80" alt="Vegetarian South Indian food platter" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container text-center">
+        <div class="cta-popup-box popup-detailed-card">
+            <span class="section-tag">Special today</span>
+            <h2>Bring home the taste of comfort and care.</h2>
+            <p>Discover meals made with real ingredients, real recipes, and real warmth.</p>
+            <div class="cta-buttons">
+                <a href="/meals" class="btn btn-warning btn-lg">Browse Meals</a>
+                <a href="/about" class="btn btn-outline-light btn-lg">About the App</a>
+                <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#appInfoModal">
+                    App Preview
+                </button>
+            </div>
+            <div class="popup-detail-grid mt-4">
+                <div class="popup-box">
+                    <h6>North Indian</h6>
+                    <p>Paneer, tandoori, rich curries, and comforting family recipes.</p>
+                </div>
+                <div class="popup-box">
+                    <h6>South Indian</h6>
+                    <p>Idli, dosa, sambar, and classic coastal flavors served fresh.</p>
+                </div>
+                <div class="popup-box">
+                    <h6>Fresh Delivery</h6>
+                    <p>Hot, hygienic meals packed with care and delivered on time.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="appInfoModal" tabindex="-1" aria-labelledby="appInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="appInfoModalLabel">About HomeChef</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    HomeChef is a food delivery platform built for customers who want nutritious, homemade,
+                    and authentic meals prepared by skilled home chefs. The system helps users discover meals,
+                    register securely, log in, and order from trusted local cooks.
+                </p>
+                <p>
+                    The project is designed around a simple user flow: customer browses meals, creates an account,
+                    logs in, and places orders. Chefs can prepare and manage their meals while administrators can
+                    monitor the product catalog and operations.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="popup-box">
+                            <h6>App Purpose</h6>
+                            <p>Connect home chefs with hungry customers in a community-driven food ecosystem.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="popup-box">
+                            <h6>Design Concept</h6>
+                            <p>Warm colors, fresh food visuals, trust-focused layout, and simple user navigation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="/about" class="btn btn-warning">View Designer Info</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

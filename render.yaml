@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: homecook-food-delivery
+    runtime: java
+    plan: free
+    rootDir: backent
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -jar target/HomeCookFoodDelivery-1.0.0.jar
+    healthCheckPath: /

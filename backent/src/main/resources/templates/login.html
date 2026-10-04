@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Login - HomeChef</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffffff, #f3f4f6 55%, #e5e7eb);
+            color: #111827;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-card {
+            background: linear-gradient(180deg, #ffffff, #f8fafc);
+            border: 1px solid #d1d5db;
+            border-radius: 24px;
+            box-shadow: 0 28px 60px rgba(15, 23, 42, 0.16);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .login-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(59, 130, 246, 0.08), transparent 60%);
+            pointer-events: none;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            color: #111827;
+            border-bottom: 1px solid #fed7aa;
+            padding: 1.7rem 1rem 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-header h2 {
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+        }
+
+        .card-body {
+            padding: 2rem 1.8rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-label {
+            color: #111827 !important;
+            font-size: 0.92rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            height: 48px;
+            border-radius: 14px;
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            color: #111827;
+            padding-left: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .form-control::placeholder {
+            color: #6b7280;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(251, 191, 36, 0.14);
+            border-color: #fbbf24;
+            background: #fff;
+            color: #111827;
+        }
+
+        .btn-warning {
+            border-radius: 14px;
+            width: 100%;
+            min-height: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            background: linear-gradient(135deg, #f59e0b, #f97316, #fb7185);
+            border: none;
+            transition: 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 12px 25px rgba(249, 115, 22, 0.3);
+            color: #111827;
+            text-transform: uppercase;
+            font-size: 0.82rem;
+            line-height: 1;
+            padding: 0 20px;
+        }
+
+        .btn-warning:hover {
+            filter: brightness(1.05);
+            transform: translateY(-1px);
+            box-shadow: 0 16px 28px rgba(249, 115, 22, 0.4);
+        }
+
+        .btn-outline-secondary {
+            border-radius: 14px;
+            width: 100%;
+            min-height: 48px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            border-color: #cbd5e1;
+            color: #111827;
+            background: #fff;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            line-height: 1;
+            padding: 0 20px;
+        }
+
+        .status-box {
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            padding: 0.9rem 1rem;
+        }
+
+        .text-secondary {
+            color: #374151 !important;
+        }
+
+        .register-link {
+            color: #b45309;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-5 col-sm-8">
+
+            <div class="login-card shadow-lg">
+
+                <div class="login-header">
+                    <h2>Welcome Back</h2>
+                </div>
+
+                <div class="card-body">
+
+                    <div
+                        th:if="${error}"
+                        class="status-box alert alert-danger mb-3"
+                        th:text="${error}">
+                    </div>
+
+                    <form
+                        method="post"
+                        action="/login">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                class="form-control"
+                                placeholder="Enter your email"
+                                required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Enter your password"
+                                required>
+                        </div>
+
+                        <button class="btn btn-warning w-100 mb-3">
+                            Customer Login
+                        </button>
+
+                        <a href="/" class="btn btn-outline-secondary w-100 mb-3">
+                            Home
+                        </a>
+
+                    </form>
+
+                    <p class="text-center mt-2 mb-0 text-secondary">
+                        New user?
+                        <a href="/register" class="register-link">
+                            Create Account
+                        </a>
+                    </p>
+                    <p class="text-center mt-2 mb-0 text-secondary">
+                        Owner access?
+                        <a href="/owner-login" class="register-link">
+                            Owner Login
+                        </a>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 col-xl-10">
+            <div class="featured-panel">
+                <div class="featured-header">
+                    <div>
+                        <span class="featured-tag">AI-inspired daily picks</span>
+                        <h3>What we serve today</h3>
+                    </div>
+                    <span class="featured-meta">Today's theme: <strong th:text="${dailyMenuTheme}">Chef specials</strong></span>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-3" th:each="meal : ${featuredMeals}">
+                        <div class="featured-card">
+                            <div class="featured-body">
+                                <h5 class="mb-0" th:text="${meal.name}">Meal Name</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="featured-note mb-0">Our local recommendation engine ranks today's available dishes by theme and meal details. The menu refreshes automatically each day.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .featured-panel {
+        background: linear-gradient(145deg, #ffffff, #e5e7eb);
+        border: 1px solid #d1d5db;
+        border-radius: 24px;
+        box-shadow: 0 26px 45px rgba(15, 23, 42, 0.18);
+        padding: 1.5rem;
+    }
+
+    .featured-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 1rem;
+        color: #111827;
+    }
+
+    .featured-tag {
+        display: inline-block;
+        background: rgba(251, 191, 36, 0.18);
+        color: #fbbf24;
+        border: 1px solid rgba(251, 191, 36, 0.25);
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .featured-header h3 {
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        font-weight: 800;
+        color: #111827;
+    }
+
+    .featured-meta {
+        color: #374151;
+        font-size: 0.82rem;
+    }
+
+    .featured-card {
+        background: linear-gradient(145deg, #f9fafb, #e5e7eb);
+        border: 1px solid #d1d5db;
+        border-radius: 18px;
+        overflow: hidden;
+        height: 100%;
+    }
+
+    .featured-body {
+        padding: 1.25rem 1rem;
+    }
+
+    .featured-body h5 {
+        color: #111827;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+
+    .featured-body p {
+        color: #374151;
+        margin: 0;
+        line-height: 1.6;
+        font-size: 0.9rem;
+    }
+
+    .featured-note {
+        color: #4b5563;
+        margin-top: 0.75rem;
+    }
+</style>
+
+</body>
+</html>

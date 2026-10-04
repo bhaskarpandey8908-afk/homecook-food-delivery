@@ -1,0 +1,13 @@
+package com.homecook.repository;
+
+import com.homecook.entity.Cart;
+import com.homecook.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface CartRepository extends JpaRepository<Cart, Long> {
+
+    Optional<Cart> findByUser(User user);
+
+}

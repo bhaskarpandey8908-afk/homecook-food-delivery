@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Meals - HomeChef</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 55%, #e9edf2 100%);
+            color: #1f2937;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.96) !important;
+            border-bottom: 1px solid #d1d5db;
+        }
+
+        .navbar-brand, .btn-warning {
+            color: #111827 !important;
+        }
+
+
+        .card {
+            background: linear-gradient(180deg, #ffffff, #f3f4f6);
+            color: #1f2937;
+            border: 1px solid #d1d5db;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 18px 32px rgba(31, 41, 55, 0.12);
+            position: relative;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(255, 255, 255, 0.3), transparent 60%);
+            pointer-events: none;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            border: none;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .btn-outline-light {
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .action-group .btn {
+            flex: 1;
+            border-radius: 12px;
+            height: 42px;
+            font-size: 0.92rem;
+        }
+
+        .food-preferences {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin: 14px 0;
+        }
+
+        .food-preferences label {
+            color: #374151;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .food-preferences select,
+        .food-preferences textarea {
+            margin-top: 4px;
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            padding: 8px;
+            background: #fff;
+            color: #1f2937;
+        }
+
+        .food-preferences .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .meal-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .price-tag {
+            color: #b45309;
+            font-weight: 800;
+            font-size: 1.35rem;
+        }
+
+        .badge-soft {
+            background: rgba(251, 191, 36, 0.12);
+            border: 1px solid rgba(251, 191, 36, 0.24);
+            color: #92400e;
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .food-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 9px;
+            margin-bottom: 10px;
+            border: 1px solid currentColor;
+            border-radius: 7px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .food-type-badge.veg {
+            color: #15803d;
+            background: #f0fdf4;
+        }
+
+        .food-type-badge.non-veg {
+            color: #b91c1c;
+            background: #fef2f2;
+        }
+
+        .food-type-dot {
+            width: 9px;
+            height: 9px;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+        }
+
+        .food-type-badge.veg .food-type-dot {
+            background: #15803d;
+        }
+
+        .food-type-badge.non-veg .food-type-dot {
+            background: #b91c1c;
+        }
+
+        .bottom-actions {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .bottom-actions .btn {
+            min-width: 190px;
+            height: 50px;
+            border-radius: 16px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 18px 30px rgba(15, 23, 42, 0.25);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 18px;
+            margin: 0;
+            gap: 8px;
+        }
+
+        .bottom-actions .btn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02), transparent 60%);
+            pointer-events: none;
+        }
+
+        .bottom-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 36px rgba(249, 115, 22, 0.18);
+        }
+
+        .bottom-actions .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #f97316, #fb7185);
+            border: none;
+            color: #fff;
+        }
+
+        .bottom-actions .btn-outline-light {
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            color: #1f2937;
+        }
+        .meal-section {
+            margin-bottom: 2.75rem;
+        }
+
+        .meal-section h2 {
+            color: #92400e;
+            font-weight: 800;
+            margin: 0 0 1.25rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid #d1d5db;
+        }
+
+        .card .text-light {
+            color: #374151 !important;
+        }
+
+        .owner-message-board {
+            background: linear-gradient(145deg, #fff7ed, #ffedd5);
+            border: 1px solid #fdba74;
+            border-radius: 18px;
+            padding: 18px;
+            margin: 0 0 32px;
+            color: #431407;
+        }
+
+        .owner-message {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #fed7aa;
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 10px;
+        }
+
+        .owner-message p {
+            margin: 8px 0 0;
+            white-space: pre-wrap;
+        }
+
+        .daily-picks {
+            margin-bottom: 42px;
+            padding: 24px;
+            border: 1px solid #f2c9a5;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #fffaf0, #fff1e6);
+            box-shadow: 0 14px 30px rgba(124, 45, 18, 0.08);
+        }
+
+        .daily-picks h2 {
+            color: #7c2d12;
+            font-weight: 800;
+        }
+
+        .daily-picks-subtitle {
+            color: #6b4b3e;
+        }
+
+        .daily-pick-card {
+            height: 100%;
+            padding: 16px;
+            border: 1px solid #f1d5c1;
+            border-radius: 14px;
+            background: #fff;
+        }
+
+        .daily-pick-card h3 {
+            color: #1f2937;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .daily-pick-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            color: #7c2d12;
+            font-size: .82rem;
+            font-weight: 700;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar bg-dark navbar-dark">
+
+    <div class="container">
+
+        <a href="/"
+           class="navbar-brand">
+
+            🍲 HomeChef
+
+        </a>
+
+        <a href="/cart"
+           class="btn btn-warning">
+
+            🛒 Cart
+
+        </a>
+        <a href="/customer/messages" class="btn btn-outline-light ms-2">Order messages</a>
+        <a href="/orders" class="btn btn-outline-light ms-2">My orders</a>
+
+    </div>
+
+</nav>
+
+<div class="container py-5">
+
+    <section class="owner-message-board">
+        <h2 class="h4 mb-1">📩 Messages about your orders</h2>
+        <p class="mb-2">Updates sent by HomeChef about your bookings.</p>
+        <article class="owner-message" th:each="message : ${orderMessages}">
+            <div class="d-flex justify-content-between flex-wrap gap-2">
+                <strong th:text="|Order #${message.order.id}|">Order #1</strong>
+                <small th:text="${message.formattedCreatedAt}">Date and time</small>
+            </div>
+            <p th:text="${message.message}">Order update</p>
+        </article>
+        <p class="mb-0 mt-3" th:if="${#lists.isEmpty(orderMessages)}">No messages yet. Order updates from HomeChef will appear here.</p>
+    </section>
+
+    <section class="daily-picks" th:if="${!#lists.isEmpty(dailyMenuMeals)}">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+            <div>
+                <h2 class="h3 mb-1">Today's AI menu picks</h2>
+                <p class="daily-picks-subtitle mb-0">Daily theme: <strong th:text="${dailyMenuTheme}">Chef specials</strong>. Picks refresh automatically each day.</p>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-sm-6 col-lg-3" th:each="meal : ${dailyMenuMeals}">
+                <article class="daily-pick-card">
+                    <div class="daily-pick-meta mb-2">
+                        <span th:text="${meal.mealTime}">Meal time</span>
+                        <span th:text="${meal.foodType == 'NON_VEG'} ? 'Non-Veg' : 'Veg'">Veg</span>
+                    </div>
+                    <h3 th:text="${meal.name}">Meal name</h3>
+                    <strong class="price-tag">₹<span th:text="${meal.price}">0</span></strong>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="meal-section">
+        <h2>Breakfast</h2>
+        <div th:replace="~{fragments/meal-cards :: cards(${breakfastMeals})}"></div>
+    </section>
+
+    <section class="meal-section">
+        <h2>Lunch</h2>
+        <div th:replace="~{fragments/meal-cards :: cards(${lunchMeals})}"></div>
+    </section>
+
+    <section class="meal-section">
+        <h2>Dinner</h2>
+        <div th:replace="~{fragments/meal-cards :: cards(${dinnerMeals})}"></div>
+    </section>
+
+    <div class="bottom-actions">
+        <a href="/" class="btn btn-warning">Main Page</a>
+        <a href="/login" class="btn btn-outline-light">Login Page</a>
+    </div>
+
+</div>
+
+</body>
+</html>

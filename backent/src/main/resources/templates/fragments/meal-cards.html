@@ -1,0 +1,51 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="cards(meals)" class="row">
+    <div class="col-md-4 mb-4" th:each="meal : ${meals}">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <div class="meal-meta">
+                    <span class="badge-soft" th:text="${meal.mealTime}">Meal time</span>
+                    <span class="price-tag">₹<span th:text="${meal.price}">0</span></span>
+                </div>
+                <span class="food-type-badge" th:classappend="${meal.foodType == 'NON_VEG'} ? ' non-veg' : ' veg'">
+                    <span class="food-type-dot"></span>
+                    <span th:text="${meal.foodType == 'NON_VEG'} ? 'Non-Veg' : 'Veg'">Veg</span>
+                </span>
+                <h4 th:text="${meal.name}">Meal name</h4>
+                <p th:text="${meal.description}">Meal description</p>
+                <form th:action="@{'/cart/add/' + ${meal.id}}" method="post">
+                    <h6 class="text-light mt-3 mb-2">Customize your food</h6>
+                    <div class="food-preferences">
+                        <label>Spice level
+                            <select name="spiceLevel">
+                                <option>None</option><option>Light</option><option selected>Regular</option><option>Extra</option>
+                            </select>
+                        </label>
+                        <label>Oil
+                            <select name="oilLevel">
+                                <option>Less</option><option selected>Regular</option><option>Extra</option>
+                            </select>
+                        </label>
+                        <label>Sugar
+                            <select name="sugarLevel">
+                                <option>None</option><option>Less</option><option selected>Regular</option><option>Extra</option>
+                            </select>
+                        </label>
+                        <label>Salt
+                            <select name="saltLevel">
+                                <option>Less</option><option selected>Regular</option><option>Extra</option>
+                            </select>
+                        </label>
+                        <label class="full-width">Other requests (optional)
+                            <textarea name="specialInstructions" rows="2" maxlength="300" placeholder="e.g. no onion, pack chutney separately"></textarea>
+                        </label>
+                    </div>
+                    <div class="action-group">
+                        <a href="/" class="btn btn-outline-light d-flex align-items-center justify-content-center">Home</a>
+                        <button class="btn btn-warning d-flex align-items-center justify-content-center">Add To Cart</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <p class="text-center text-light" th:if="${#lists.isEmpty(meals)}">No meals listed for this section yet.</p>
+</div>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About HomeChef</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(140deg, #f5f6f8 0%, #edeff3 35%, #fdfdff 100%);
+            font-family: Arial, sans-serif;
+            color: #edf2ff;
+        }
+
+        .topbar {
+            background: rgba(239, 240, 242, 0.9);
+            color: rgb(15, 14, 14);
+            padding: 14px 0;
+            border-bottom: 1px solid rgb(236, 238, 240);
+        }
+
+        .brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fbbf24;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #151515;
+            text-decoration: none;
+            margin-left: 18px;
+            font-weight: 600;
+        }
+
+        .hero-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.96), rgba(249, 115, 22, 0.88), rgba(251, 113, 133, 0.72));
+            color: white;
+            border-radius: 28px;
+            padding: 40px 30px;
+            margin-top: 30px;
+            box-shadow: 0 25px 45px rgba(249, 115, 22, 0.28);
+            border: 1px solid rgba(255,255,255,0.14);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card,
+        .designer-card {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(17, 24, 39, 0.9));
+            color: #edf2ff;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 24px;
+            box-shadow: 0 22px 38px rgba(15, 23, 42, 0.32);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .info-card:hover,
+        .designer-card:hover,
+        .hero-box:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 28px 45px rgba(15, 23, 42, 0.42), 0 16px 28px rgba(251, 191, 36, 0.12);
+        }
+
+        .info-card::before,
+        .designer-card::before,
+        .hero-box::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(59, 130, 246, 0.09), transparent 60%);
+            pointer-events: none;
+        }
+
+        .info-card {
+            padding: 28px 24px;
+        }
+
+        .designer-card {
+            overflow: hidden;
+        }
+
+        .designer-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .designer-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            color: #fff;
+        }
+
+        .role-label {
+            color: #fbbf24;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .chef-highlight {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .chef-badges span {
+            display: inline-block;
+            background: rgba(251, 191, 36, 0.12);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.22);
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-weight: 600;
+            margin: 8px 8px 0 0;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="topbar">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="/" class="brand">🍲 HomeChef</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/meals">Meals</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container pb-5">
+    <div class="hero-box">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <span class="badge bg-light text-dark mb-3">Food platform</span>
+                <h1 class="display-5 fw-bold">About the HomeChef App</h1>
+                <p class="mb-0 fs-5">
+                    HomeChef is a community-based food delivery platform created to make homemade meals accessible,
+                    easy to order, and reliable for customers who want authentic taste and healthy food.
+                </p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="chef-highlight">100% Homemade</div>
+                <p class="mb-0 mt-2">Fresh food by local chefs for local families.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 g-4">
+        <div class="col-lg-4">
+            <div class="info-card">
+                <span class="role-label">App Details</span>
+                <h3>What this app does</h3>
+                <p>
+                    This app allows customers to browse meals, create accounts, log in, and order homemade food from nearby chefs.
+                    The platform is designed for convenience, safety, and local community-based food discovery.
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="info-card">
+                <span class="role-label">Platform Focus</span>
+                <h3>Core features</h3>
+                <ul class="mb-0 ps-3">
+                    <li>User registration and login</li>
+                    <li>Meal listing and browsing</li>
+                    <li>Chef and customer roles</li>
+                    <li>Cart and order workflow</li>
+                    <li>Local homemade food discovery</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="info-card">
+                <span class="role-label">Design Style</span>
+                <h3>Visual identity</h3>
+                <p>
+                    The app uses warm food-inspired colors such as orange, cream, and brown, with clean layouts and bold cards
+                    to create trust, appetite, and a friendly modern design.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <div class="text-center mb-4">
+            <span class="section-tag badge bg-warning text-dark">Designers</span>
+            <h2 class="mt-2">Meet the creators behind the app</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="designer-card">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80" alt="Bhaskar Pandey">
+                    <div class="p-4">
+                        <p class="role-label">Lead Designer</p>
+                        <h3 class="designer-name">Bhaskar Pandey</h3>
+                        <p class="mt-3 mb-2">
+                            Bhaskar Pandey is one of the main designers of this app and helped shape the user experience,
+                            visual style, and modern app interface. He focused on building a clean and professional design flow.
+                        </p>
+                        <div class="chef-badges">
+                            <span>UI Design</span>
+                            <span>Brand Style</span>
+                            <span>App Layout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="designer-card">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80" alt="Niharika Swain">
+                    <div class="p-4">
+                        <p class="role-label">Design Partner</p>
+                        <h3 class="designer-name">Niharika Swain</h3>
+                        <p class="mt-3 mb-2">
+                            Niharika Swain contributed with taste-focused visual planning and polished front-end styling,
+                            helping the app look friendly, premium, and engaging for food customers and chefs alike.
+                        </p>
+                        <div class="chef-badges">
+                            <span>Front-end</span>
+                            <span>Polish</span>
+                            <span>User Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <div class="text-center mb-4">
+            <span class="section-tag badge bg-warning text-dark">Featured chefs</span>
+            <h2 class="mt-2">Chefs preparing meals for customers</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="info-card text-center">
+                    <div class="fs-1">👩‍🍳</div>
+                    <h4 class="mt-3">Asha Sharma</h4>
+                    <p>Specialist in home-style Indian meals.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="info-card text-center">
+                    <div class="fs-1">👨‍🍳</div>
+                    <h4 class="mt-3">Rohan Verma</h4>
+                    <p>Healthy and fresh vegetarian dishes.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="info-card text-center">
+                    <div class="fs-1">👩‍🍳</div>
+                    <h4 class="mt-3">Nisha Roy</h4>
+                    <p>Popular for Bengali comfort food.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="info-card text-center">
+                    <div class="fs-1">👨‍🍳</div>
+                    <h4 class="mt-3">Arjun Das</h4>
+                    <p>Known for rich curries and local specials.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
